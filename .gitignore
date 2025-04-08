@@ -38,6 +38,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Uploads folder
+uploads
+
 # Kotlin (misc generated stuff)
 .kotlin
 
