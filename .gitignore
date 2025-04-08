@@ -1,0 +1,50 @@
+# === Top-level IDE/project junk ===
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA (only ignore global project files, not per-module files)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+# NetBeans
+nbbuild/
+nbdist/
+.nb-gradle/
+nbproject/private/
+
+# Maven / Gradle wrappers in modules — don't ignore the wrapper jars
+.gradle
+build/
+target/
+!**/gradle/wrapper/gradle-wrapper.jar
+!**/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Kotlin (misc generated stuff)
+.kotlin
+
+# Node/npm just in case
+node_modules/
+
+# OS/system
+Thumbs.db
+ehthumbs.db
+Desktop.ini
