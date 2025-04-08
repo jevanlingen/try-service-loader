@@ -64,9 +64,8 @@ fun scanAndEvaluate() {
     uploadDir.listFiles { f -> f.extension == "jar" }?.forEach { jar ->
         try {
             val loader = URLClassLoader(arrayOf(jar.toURI().toURL()), Contest::class.java.classLoader)
-            val providers = ServiceLoader.load(ContestProvider::class.java, loader)
-            val provider = providers.firstOrNull() ?: return@forEach
-            val contest = provider.create()
+            val providers = ServiceLoader.load(Contest::class.java, loader)
+            val contest = providers.firstOrNull() ?: return@forEach
 
             val results = mutableMapOf<String, Boolean>()
             Contest::class.declaredFunctions.forEach {
