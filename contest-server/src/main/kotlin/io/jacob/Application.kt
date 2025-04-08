@@ -11,6 +11,7 @@ import io.ktor.server.routing.*
 import java.io.File
 import java.net.URLClassLoader
 import java.util.*
+import kotlin.collections.set
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
@@ -28,7 +29,14 @@ fun Application.module() {
             val sorted = synchronized(userScores) {
                 userScores.values.sortedByDescending { it.score.count { it.value } }
             }
-            call.respondText(buildHtmlScoreboard(sorted), contentType = Html)
+
+            val resource = this::class.java.classLoader.getResource("static/scoreboard.html") ?: return@get
+            val template = File(resource.toURI()).readText()
+            val text = template.replace("\${content}", sorted.joinToString("") {
+                """<tr><td>${it.name}</td><td>${it.score.count { it.value }}</td><td>${it.score}</td></tr>"""
+            })
+
+            call.respondText(text, contentType = Html)
         }
 
         post("/upload") {
@@ -42,7 +50,7 @@ fun Application.module() {
                 part.dispose()
             }
             scanAndEvaluate()
-            call.respondText("Upload successful")
+            call.respondRedirect("/upload-done.html")
         }
     }
     scanAndEvaluate()
@@ -61,7 +69,7 @@ fun scanAndEvaluate() {
         }
 
     val updatedScores = mutableMapOf<String, User>()
-    uploadDir.listFiles { it.extension == "jar" }?.forEach { jar ->
+    uploadDir.listFiles { f -> f.extension == "jar" }?.forEach { jar ->
         try {
             val loader = URLClassLoader(arrayOf(jar.toURI().toURL()), Contest::class.java.classLoader)
             val providers = ServiceLoader.load(Contest::class.java, loader)
@@ -83,19 +91,6 @@ fun scanAndEvaluate() {
         userScores.clear()
         userScores.putAll(updatedScores)
     }
-}
-
-fun buildHtmlScoreboard(users: List<User>): String = buildString {
-    append("""
-        <html><head><title>Scoreboard</title></head><body>
-        <h1>Scoreboard</h1>
-        <table border="1">
-        <tr><th>Player</th><th>Score</th><th>Details</th></tr>
-    """)
-    users.forEach { user ->
-        append("""<tr><td>${user.name}</td><td>${user.score.count { it.value }}</td><td>${user.score}</td></tr>""")
-    }
-    append("</table></body></html>")
 }
 
 data class User(val name: String, val score: Map<String, Boolean>)
