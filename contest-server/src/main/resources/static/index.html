@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .upload-section {
+            margin-top: 30px;
+        }
+        .upload-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+        .upload-btn:active {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome to the Contest!</h1>
+    <p>We are excited to see what you have built! Please upload your JAR file below.</p>
+
+    <div class="upload-section">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="fileUpload">Choose your JAR file:</label><br>
+            <input type="file" id="fileUpload" name="file" accept=".jar" required><br><br>
+            <button type="submit" class="upload-btn">Upload Your JAR</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
