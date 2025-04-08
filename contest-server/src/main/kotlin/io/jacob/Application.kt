@@ -61,7 +61,7 @@ fun scanAndEvaluate() {
         }
 
     val updatedScores = mutableMapOf<String, User>()
-    uploadDir.listFiles { f -> f.extension == "jar" }?.forEach { jar ->
+    uploadDir.listFiles { it.extension == "jar" }?.forEach { jar ->
         try {
             val loader = URLClassLoader(arrayOf(jar.toURI().toURL()), Contest::class.java.classLoader)
             val providers = ServiceLoader.load(Contest::class.java, loader)
@@ -69,7 +69,7 @@ fun scanAndEvaluate() {
 
             val results = mutableMapOf<String, Boolean>()
             Contest::class.declaredFunctions.forEach {
-                val exp = it.findAnnotation<Experiment>() ?: return@forEach
+                val exp = it.findAnnotation<Assignment>() ?: return@forEach
                 // TODO: Do something with `exp.shouldBeFixedBefore`
                 results[it.name] = contest.evaluate(it)
             }

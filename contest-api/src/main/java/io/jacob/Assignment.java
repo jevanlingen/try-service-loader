@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Experiment {
+public @interface Assignment {
     int value();
     String description();
     String shouldBeFixedBefore();

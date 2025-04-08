@@ -1,19 +1,16 @@
 package io.jacob;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * This class represents the contests the players are gonna take.
  */
 public interface Contest {
-    @Experiment(value = 1, description = "Determine the highest value of the two numbers", shouldBeFixedBefore = "2025-04-08 12:30")
+    @Assignment(value = 1, description = "Determine the highest value of the two numbers", shouldBeFixedBefore = "2025-04-08 12:30")
     int highestNumber(int a, int b);
 
-    @Experiment(value = 2, description = "Remove duplicate characters from the input. Start from left to right.", shouldBeFixedBefore = "2025-04-08 12:45")
+    @Assignment(value = 2, description = "Remove duplicate characters from the input. Start from left to right.", shouldBeFixedBefore = "2025-04-08 12:45")
     String removeDuplicates(String s);
 
-    @Experiment(value = 3, description = "Count the number of vowels (a, e, i, o, u) in the input string.", shouldBeFixedBefore = "2025-04-08 13:00")
+    @Assignment(value = 3, description = "Count the number of vowels (a, e, i, o, u) in the input string.", shouldBeFixedBefore = "2025-04-08 13:00")
     int countVowels(String input);
 
     // Enable more as we progress the hackathon
